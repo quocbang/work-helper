@@ -1,0 +1,22 @@
+[tool.poetry]
+package-mode = false
+name = "work-helper"
+version = "0.1.0"
+description = ""
+authors = ["teq-quocbang <bangthong@teqnological.asia>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fairseq = "^0.12.2"
+ipython = "^9.0.2"
+torch = "^2.6.0"
+transformers = "^4.50.3"
+scipy = "^1.15.2"
+stubs = "^1.0.0"
+sqlfluff = "^3.3.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
