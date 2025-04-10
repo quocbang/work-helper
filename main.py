@@ -1,10 +1,11 @@
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = ''  # Force CPU usage
+
+os.environ["CUDA_VISIBLE_DEVICES"] = ""  # Force CPU usage
 
 import IPython.display as ipd
 from fairseq.checkpoint_utils import load_model_ensemble_and_task_from_hf_hub
-from fairseq.models.text_to_speech.hub_interface import TTSHubInterface
 from fairseq.dataclass.utils import convert_namespace_to_omegaconf
+from fairseq.models.text_to_speech.hub_interface import TTSHubInterface
 
 # Create config override dictionary
 cfg_overrides = {
@@ -16,7 +17,7 @@ cfg_overrides = {
 # Load model with modified configuration
 models, cfg, task = load_model_ensemble_and_task_from_hf_hub(
     "facebook/tts_transformer-vi-cv7",
-    arg_overrides=convert_namespace_to_omegaconf(cfg_overrides)
+    arg_overrides=convert_namespace_to_omegaconf(cfg_overrides),
 )
 
 # Move model to CPU explicitly

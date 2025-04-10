@@ -6,12 +6,37 @@ services:
   n8n:
     image: docker.n8n.io/n8nio/n8n
     restart: always
+    networks:
+      - work-helper
     ports:
       - "5678:5678"
     environment:
       - GENERIC_TIMEZONE="Asia/Ho_Chi_Minh"
+      - N8N_PYTHON_NODE_TIMEOUT=300000 # 3000 seconds
+      - N8N_PYTHON_NODE_MEMORY_LIMIT=1024      
+      - WEBHOOK_URL=${N8N_PUBLIC_API_URL}      
     volumes:
       - n8n_data:/home/node/.n8n
+      - ./srv:/srv
+      - ./crawlers/douyin/web:/crawlers/douyin/web/config.yaml
+
+  downloader:
+    image: evil0ctal/douyin_tiktok_download_api:latest
+    restart: always
+    networks:
+      - work-helper
+    ports:
+      - "5679:80"
+    volumes:      
+      - ./data:/data
 
 volumes:
   n8n_data:
+  caddy_data:
+  caddy_config:
+
+networks:
+  work-helper:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: work-helper    

@@ -12,3 +12,8 @@
 *.tar.gz
 .venv
 .mypy_cache
+videos
+cookies
+.DS_store
+.ngrok-url
+*.sqlite

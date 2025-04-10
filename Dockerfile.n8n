@@ -1,0 +1,15 @@
+FROM n8nio/n8n:latest
+
+# Switch to root user to install system packages
+USER root
+
+# Install yt-dlp and its dependencies directly with apk (no pip needed)
+RUN apk update && apk add --no-cache \
+    python3 \
+    ffmpeg \
+    yt-dlp
+
+RUN chmod 777 /srv
+
+# Switch back to node user for security
+USER node
