@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Wait for ngrok to start
-sleep 5
+sleep 20
 
 # Get the public URL
 url=$(curl -s http://localhost:4040/api/tunnels | grep -o 'https://[^[:space:]]*\.ngrok-free\.app')

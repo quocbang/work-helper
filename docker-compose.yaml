@@ -11,14 +11,15 @@ services:
     ports:
       - "5678:5678"
     environment:
-      - GENERIC_TIMEZONE="Asia/Ho_Chi_Minh"
+      - GENERIC_TIMEZONE=Asia/Ho_Chi_Minh
       - N8N_PYTHON_NODE_TIMEOUT=300000 # 3000 seconds
-      - N8N_PYTHON_NODE_MEMORY_LIMIT=1024      
+      - N8N_PYTHON_NODE_MEMORY_LIMIT=4000      
       - WEBHOOK_URL=${N8N_PUBLIC_API_URL}      
     volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
       - n8n_data:/home/node/.n8n
-      - ./srv:/srv
-      - ./crawlers/douyin/web:/crawlers/douyin/web/config.yaml
+      - ./srv:/srv     
 
   downloader:
     image: evil0ctal/douyin_tiktok_download_api:latest
@@ -29,6 +30,7 @@ services:
       - "5679:80"
     volumes:      
       - ./data:/data
+      - ./crawlers/douyin/web/config.yaml:/app/crawlers/douyin/web/config.yaml
 
 volumes:
   n8n_data:
