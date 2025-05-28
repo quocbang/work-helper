@@ -1,0 +1,7 @@
+development:
+  dialect: postgres
+  # Connection string format: username:password@tcp(host:port)/database?options
+  # Used to configure the database connection for the development environment.  
+  datasource: ${DB_USER}:${DB_PASSWORD}@tcp(127.0.0.1:${DB_PORT})/n8n?parseTime=true
+  dir: migrations
+  table: gorp_migrations

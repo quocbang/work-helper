@@ -14,7 +14,7 @@ services:
       - GENERIC_TIMEZONE=Asia/Ho_Chi_Minh
       - N8N_PYTHON_NODE_TIMEOUT=300000 # 3000 seconds
       - N8N_PYTHON_NODE_MEMORY_LIMIT=4000      
-      - WEBHOOK_URL=${N8N_PUBLIC_API_URL}      
+      - WEBHOOK_URL=${N8N_PUBLIC_API_URL}
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
@@ -31,11 +31,37 @@ services:
     volumes:      
       - ./data:/data
       - ./crawlers/douyin/web/config.yaml:/app/crawlers/douyin/web/config.yaml
+      
+  redis:
+    container_name: redis
+    networks:
+      - work-helper
+    image: redis:7.2.4-alpine
+    restart: always
+    ports: 
+      - 6379:6379          
+    volumes:
+      - cache:/data
+  postgres:
+    image: postgres:14.3-alpine
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - ${DB_PORT}:5432
+    networks:
+      - work-helper
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
 
 volumes:
   n8n_data:
   caddy_data:
   caddy_config:
+  cache:
+  postgres:
 
 networks:
   work-helper:
